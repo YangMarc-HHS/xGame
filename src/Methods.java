@@ -82,6 +82,7 @@ public class Methods {
     public void makeFile (String userpass) {
         String userpassFile = (userpass + ".txt");
         File newUserFile = new File(userpassFile);
+
         try {
             if (newUserFile.exists()) {
                 System.out.println("Error: Account Already Made");
