@@ -96,6 +96,7 @@ public class Login {
                     System.out.println("IOException");
                 }
                 method.makeFile(userpassFile);
+                method.addToDoc(userpassFile, "userpass: " + userpass);
 
 
             case "login" :

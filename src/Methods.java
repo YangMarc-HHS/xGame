@@ -100,13 +100,14 @@ public class Methods {
 
 
         try {
-            FileWriter newUserFileWriter = new FileWriter(fileNameWithTxt);
+
             if (newUserFile.exists()) {
                 System.out.println("Error: Account Already Made:");
 
             } else {
                 newUserFile.createNewFile();
                 System.out.println("File created");
+                FileWriter newUserFileWriter = new FileWriter(fileNameWithTxt);
                 newUserFileWriter.write("userpass: " + fileNameWithTxt);
             }
         }   catch (IOException e) {
