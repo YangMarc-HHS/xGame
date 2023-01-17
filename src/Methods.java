@@ -7,44 +7,59 @@ import java.io.*;
 
 
 public class Methods {
+    public boolean newFindUser (String userpass) {
+        try {
+            return Files.readAllLines(Path.of("LoginDetails.txt")).contains(userpass);
+        } catch (IOException e){
+            System.out.println("IOException");
+            return false;
+        }
+    }
+    //finds user from login details
+    /*
+    public boolean findUser (String userpass) throws IOException {
 
-    public boolean findUser (String x) throws IOException {
         Scanner loginFinder = null;
         try {
             loginFinder = new Scanner(new FileInputStream("LoginDetails.txt"));
             while (loginFinder.hasNextLine()) {
                 String loginDetails = loginFinder.nextLine();
-                if (x.equals(loginDetails)) {
-                    return true;
-                }
+
             }
         } catch (FileNotFoundException e) {
             System.out.print("FileNotFoundException");
         } finally {
             loginFinder.close();
+            return Files.readAllLines(Path.of("LoginDetails.txt")).contains(userpass);
         }
-        return Files.readAllLines(Path.of("LoginDetails.txt")).contains(x);
-    }
 
-    //public String tokenFinder(String x, String y, String z) {
 
-    //}
-    public boolean addToDoc (String x, String y) {
+
+    }*/
+
+
+
+    public boolean addToDoc (String fileNameWithTxt, String stringGoingToAddedToDoc) {
+
         PrintWriter xWriter = null;
         boolean result = true;
         try {
-            xWriter = new PrintWriter(x);
-            xWriter.print(y);
+            xWriter = new PrintWriter(fileNameWithTxt);
+            xWriter.print(stringGoingToAddedToDoc);
             return true;
         }catch (IOException e) {
             System.out.print("IOException");
             return false;
 
+        }finally {
+            xWriter.close();
         }
 
     }
-    public int findAmountOfLines (String fileName) throws FileNotFoundException {
-        File file = new File(fileName);
+    //takes in file and string, and writes string to file
+
+    public int findAmountOfLines (String fileNameWithTxt) throws FileNotFoundException {
+        File file = new File(fileNameWithTxt);
         int lineAmount= 0;
         Scanner lineCounter = new Scanner(file);
         while(lineCounter.hasNextLine()) {
@@ -53,7 +68,7 @@ public class Methods {
         }
         return lineAmount;
     }
-
+    //finds the amount of lines in a file
     public int rollTen (int pity, int pity2) {
         int rolls[];
         int rollNum;
@@ -65,9 +80,9 @@ public class Methods {
         }
         return 10;
     }
-
-    public String[] saveData (int lineAmount, String fileName) throws FileNotFoundException{
-        File file = new File(fileName);
+    //ten roll - not finished yet
+    public String[] saveData (int lineAmount, String fileNameWithTxt) throws FileNotFoundException{
+        File file = new File(fileNameWithTxt);
         //lineAmount = lineAmount - 1;
         String lineInfo = ".";
         String[] exportedData = new String[lineAmount];
@@ -78,26 +93,32 @@ public class Methods {
         }
         return exportedData;
     }
+    //saves everything in the file as a string array
 
-    public void makeFile (String userpass) {
-        String userpassFile = (userpass + ".txt");
-        File newUserFile = new File(userpassFile);
+    public void makeFile (String fileNameWithTxt) {
+        File newUserFile = new File(fileNameWithTxt);
+
 
         try {
+            FileWriter newUserFileWriter = new FileWriter(fileNameWithTxt);
             if (newUserFile.exists()) {
-                System.out.println("Error: Account Already Made");
+                System.out.println("Error: Account Already Made:");
 
             } else {
                 newUserFile.createNewFile();
                 System.out.println("File created");
-
+                newUserFileWriter.write("userpass: " + fileNameWithTxt);
             }
         }   catch (IOException e) {
             System.out.println("IOException");
         }
 
     }
+    //makes file once given file name
+
+    /*
     public void ifmakeFile (String name) throws IOException{
+
         name = name + ".txt";
         File file = new File(name);
 
@@ -107,6 +128,6 @@ public class Methods {
             file.createNewFile();
             System.out.println("File created");
         }
-    }
+    }*/
 }
 

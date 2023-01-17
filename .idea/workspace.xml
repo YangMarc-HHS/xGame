@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d722b2bc-eb38-43c1-8c64-c610d10119b5" name="Changes" comment="Initial Release">
-      <change afterPath="$PROJECT_DIR$/src/MethodTest.java" afterDir="false" />
+    <list default="true" id="d722b2bc-eb38-43c1-8c64-c610d10119b5" name="Changes" comment="Comments and stuff">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Methods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Methods.java" afterDir="false" />
@@ -76,7 +75,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673785651738</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Comments and stuff">
+      <created>1673841796642</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1673841796642</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -92,7 +98,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial Release" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial Release" />
+    <MESSAGE value="Comments and stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="Comments and stuff" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

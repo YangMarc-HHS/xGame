@@ -15,8 +15,9 @@ public class Login {
         String username;
         String password;
         String userpass;
+        String userpassFile;
         int lineAmountLD;
-        Scanner UserFileReader;
+        File userFile;
         String[] fileInfo = {"a", "b"};
 
         /*
@@ -49,7 +50,7 @@ public class Login {
 
         Scanner userInput = new Scanner (System.in);
         Scanner passInput = new Scanner (System.in);
-        int numOfLines = 0;
+        int numOfLines;
 
         try {
             numOfLines = method.findAmountOfLines("LoginDetails.txt");
@@ -80,9 +81,10 @@ public class Login {
                 username = userInput.nextLine();
                 username = username.toLowerCase();
                 System.out.println("Password: ");
-                password = userInput.nextLine();
+                password = passInput.nextLine();
                 //prints username and password and saves as variables
                 userpass = (username + password);
+                userpassFile = userpass + ".txt";
 
                 try {
                     FileWriter myWriter = new FileWriter("LoginDetails.txt", true);
@@ -93,7 +95,7 @@ public class Login {
                 }catch (IOException e) {
                     System.out.println("IOException");
                 }
-                method.makeFile(userpass);
+                method.makeFile(userpassFile);
 
 
             case "login" :
@@ -110,41 +112,52 @@ public class Login {
                 username = userInput.nextLine();
                 username = username.toLowerCase();
                 System.out.println("Password: ");
-                password = userInput.nextLine();
+                password = passInput.nextLine();
                 userpass = username + password;
+                userpassFile = userpass + ".txt";
                 //takes in username and password as inputs
 
-                userpass = userpass + ".txt";
-                File userFile = new File(userpass);
+                userFile = new File(userpassFile);
+                System.out.println("Account Found: " + method.newFindUser(userpass));
                 //makes token 2.0 and makes new file variable
 
 
                     try {
-                        lineAmountLD = method.findAmountOfLines(userpass);
-                        UserFileReader = new Scanner(userFile);
-                        fileInfo = method.saveData(lineAmountLD, userpass);
+                        lineAmountLD = method.findAmountOfLines(userpassFile);
+                        fileInfo = method.saveData(lineAmountLD, userpassFile);
+
                     }catch (FileNotFoundException e) {
-                        System.out.print("FileNotFoundException");
+                        try {
+                            userFile.createNewFile();
+                            method.addToDoc(userpassFile, "Username:" + username);
+                            method.addToDoc(userpassFile, "Password:" + password);
+                            lineAmountLD = method.findAmountOfLines(userpassFile);
+                            fileInfo = method.saveData(lineAmountLD, userpassFile);
+
+                        }catch (IOException ex) {
+                        System.out.print("IOException");
+                        }
+
                     }
-                    System.out.print(Arrays.toString(fileInfo));
+                    System.out.println(Arrays.toString(fileInfo));
 
 
-
+                    /*
                     try {
                     Scanner loginFinder = new Scanner(new FileInputStream("LoginDetails.txt"));
                     while (loginFinder.hasNextLine()) {
                         String loginDetails = loginFinder.nextLine();
-                        if (username.equals(loginDetails)) {
-                            break;
+                        if (userpass.equals(loginDetails)) {
+                            System.out.print("User Found");
+
                         }
+
                     }
                 } catch (FileNotFoundException e) {
                     System.out.print("FileNotFoundException");
                     break;
-                }
-
-
-
+                }*/
+                //made method -> method.newFindUser
 
         }
     }
