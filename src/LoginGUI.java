@@ -3,12 +3,10 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.text.DecimalFormat;
 
-public class LoginGUI extends JFrame
-        implements ActionListener
+public class LoginGUI extends JFrame implements ActionListener
 {
     private JTextField userfield;
     private JTextField passfield;
-    private DecimalFormat money = new DecimalFormat("$0.00");
     public String userObtained;
     public String passObtained;
 
@@ -16,41 +14,26 @@ public class LoginGUI extends JFrame
     {
         super("Login");
 
-        JPanel panel = new JPanel();
-        JPanel panel1 = new JPanel();
-        panel.setLayout(new GridLayout(6,2));
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(null);
+        frame.setBounds(300, 300, 400, 300);
 
-        panel.add(new JLabel("   Username:"));
-        userfield = new JTextField(10);
-        userfield.setHorizontalAlignment(JTextField.RIGHT);
-        panel.add(userfield);
+        JLabel label = new JLabel();
+        label.setBounds(0,0,100,100);
+        label.setBackground(Color.blue);
 
-        panel.add(new JLabel("   Password"));
-        passfield = new JTextField(20);
-        passfield.setHorizontalAlignment(JTextField.RIGHT);
-        panel.add(passfield);
-
-        JButton login = new JButton("Login");
-        //login.setPreferredSize(new Dimension(4, 2));
-        login.addActionListener(this);
+        label.setVisible(true);
+        frame.add(label);
+        frame.setVisible(true);
 
         Container c = getContentPane();
-        c.add(panel, BorderLayout.CENTER);
-        c.add(login, BorderLayout.SOUTH);
 
-        JButton newAccount = new JButton("New Account");
-        newAccount.addActionListener(this);
-
-        c.add(panel, BorderLayout.CENTER);
-        c.add(newAccount, BorderLayout.SOUTH);
     }
 
 
     public void actionPerformed(ActionEvent e)
     {
-        userObtained = userfield.getText();
-        passObtained = passfield.getText();
-
 
     }
 
@@ -59,6 +42,6 @@ public class LoginGUI extends JFrame
         LoginGUI window = new LoginGUI();
         window.setBounds(300, 300, 400, 300);
         window.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        window.setVisible(true);
+        //window.setVisible(true);
     }
 }

@@ -9,7 +9,6 @@ public class Login {
     public static void main(String[] args) {
 
         File file = new File("LoginDetails.txt");
-        System.out.println();
         Methods method = new Methods();
         String loginChoice;
         String username;
@@ -20,13 +19,6 @@ public class Login {
         File userFile;
         String[] fileInfo = {"a", "b"};
 
-        /*
-        try {
-            method.ifmakeFile("LoginDetails");
-        }catch (IOException e) {
-            System.out.println("IOException");
-        }*/
-
         try {
             if (file.exists()) {
                 System.out.println("File already exists - " + file.getName());
@@ -34,10 +26,9 @@ public class Login {
                 file.createNewFile();
                 System.out.println("File created");
             }
-        }   catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("IOException");
         }
-        //checks if file is made or not and makes new one
 
         do {
             System.out.println("Login or make new account?");
@@ -45,11 +36,12 @@ public class Login {
             Scanner loginAnswer = new Scanner(System.in);
             loginChoice = loginAnswer.nextLine();
             loginChoice = loginChoice.toLowerCase();
+
         } while (!loginChoice.equals("login") && !loginChoice.equals("new"));
         //Menu choice, either make new account or login*
 
-        Scanner userInput = new Scanner (System.in);
-        Scanner passInput = new Scanner (System.in);
+        Scanner userInput = new Scanner(System.in);
+        Scanner passInput = new Scanner(System.in);
         int numOfLines;
 
         try {
@@ -63,102 +55,125 @@ public class Login {
             //prints out all information in logindetails
 
 
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.print("FileNotFoundException");
         } //finds and saves and data in login details
 
-        switch(loginChoice) {
+        switch (loginChoice) {
             /*
             Makes new account
             And makes new file for them
             Puts their account into file
              */
 
-            case "new" :
+            case "new":
 
                 System.out.println("Please enter a username and password");
                 System.out.println("Username: ");
                 username = userInput.nextLine();
                 username = username.toLowerCase();
+
                 System.out.println("Password: ");
                 password = passInput.nextLine();
+                username = username.replaceAll("\\s", "");
+                password = password.replaceAll("\\s", "");
                 //prints username and password and saves as variables
-                userpass = (username + password);
+                userpass = username + password;
                 userpassFile = userpass + ".txt";
 
                 try {
                     FileWriter myWriter = new FileWriter("LoginDetails.txt", true);
-                    myWriter.write(userpass + "\r\n");
+                    //enUserpass = method.userpassEncrypt(username,password);
                     myWriter.close();
 
 
-                }catch (IOException e) {
+                } catch (IOException e) {
                     System.out.println("IOException");
                 }
-                method.makeFile(userpassFile);
+                method.addToDoc("LoginDetails.txt", userpass);
+                //method.makeFile(userpassFile);
                 method.addToDoc(userpassFile, "userpass: " + userpass);
 
 
-            case "login" :
-            /*
-            Login
-            tells user to make account if user not found
-            Needs method to check array or file
-            Opens file of user and reads inside
-
-             */
+            case "login":
 
                 System.out.println("Login -");
                 System.out.println("Username: ");
                 username = userInput.nextLine();
                 username = username.toLowerCase();
+
                 System.out.println("Password: ");
                 password = passInput.nextLine();
+
+                username = username.replaceAll("\\s", "");
+                password = password.replaceAll("\\s", "");
+
                 userpass = username + password;
                 userpassFile = userpass + ".txt";
-                //takes in username and password as inputs
+
 
                 userFile = new File(userpassFile);
                 System.out.println("Account Found: " + method.newFindUser(userpass));
-                //makes token 2.0 and makes new file variable
 
 
+                try {
+                    lineAmountLD = method.findAmountOfLines(userpassFile);
+                    fileInfo = method.saveData(lineAmountLD, userpassFile);
+
+                } catch (FileNotFoundException e) {
                     try {
+                        userFile.createNewFile();
+                        method.addToDoc(userpassFile, "Username:" + username);
+                        method.addToDoc(userpassFile, "Password:" + password);
                         lineAmountLD = method.findAmountOfLines(userpassFile);
                         fileInfo = method.saveData(lineAmountLD, userpassFile);
 
-                    }catch (FileNotFoundException e) {
-                        try {
-                            userFile.createNewFile();
-                            method.addToDoc(userpassFile, "Username:" + username);
-                            method.addToDoc(userpassFile, "Password:" + password);
-                            lineAmountLD = method.findAmountOfLines(userpassFile);
-                            fileInfo = method.saveData(lineAmountLD, userpassFile);
-
-                        }catch (IOException ex) {
+                    } catch (IOException ex) {
                         System.out.print("IOException");
-                        }
+                    }
+
+                }
+                //System.out.println(Arrays.toString(fileInfo));
+                String writeReadChoice;
+
+
+                do {
+
+                    Scanner writeRead = new Scanner(System.in);
+                    writeReadChoice = writeRead.next();
+                    writeReadChoice = writeReadChoice.toLowerCase();
+                    switch (writeReadChoice) {
+                        case "read":
+                            System.out.println(Arrays.toString(fileInfo));
+                            break;
+
+
+                        case "write":
+                            System.out.print("What to add to file");
+                            Scanner writeIn = new Scanner(System.in);
+                            String writeInX = writeIn.next();
+                            try {
+                                FileWriter writeWriter = new FileWriter(userpassFile, true);
+                                writeWriter.write(writeInX + "\r\n");
+                                writeWriter.close();
+                            } catch (IOException e) {
+                                System.out.print("IOException");
+                            }
+                            break;
+
+                        case "end":
+                            System.exit(0);
+                            break;
+
+                        default:
+                            if (!writeReadChoice.equals("stop")) {
+                                System.out.println("\"Read\" or \"Write\"");
+                            }
+
 
                     }
-                    System.out.println(Arrays.toString(fileInfo));
+                } while (!writeReadChoice.equals("stop"));
 
-
-                    /*
-                    try {
-                    Scanner loginFinder = new Scanner(new FileInputStream("LoginDetails.txt"));
-                    while (loginFinder.hasNextLine()) {
-                        String loginDetails = loginFinder.nextLine();
-                        if (userpass.equals(loginDetails)) {
-                            System.out.print("User Found");
-
-                        }
-
-                    }
-                } catch (FileNotFoundException e) {
-                    System.out.print("FileNotFoundException");
-                    break;
-                }*/
-                //made method -> method.newFindUser
 
         }
     }

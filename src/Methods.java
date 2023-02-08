@@ -1,16 +1,17 @@
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.*;
 
 
 public class Methods {
-    public boolean newFindUser (String userpass) {
+    public boolean newFindUser(String userpass) {
+        userpass = userpass.replaceAll("//s+", "");
         try {
             return Files.readAllLines(Path.of("LoginDetails.txt")).contains(userpass);
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("IOException");
             return false;
         }
@@ -38,55 +39,58 @@ public class Methods {
     }*/
 
 
-
-    public boolean addToDoc (String fileNameWithTxt, String stringGoingToAddedToDoc) {
+    public boolean addToDoc(String fileNameWithTxt, String stringGoingToAddedToDoc) {
 
         PrintWriter xWriter = null;
         boolean result = true;
         try {
             xWriter = new PrintWriter(fileNameWithTxt);
-            xWriter.print(stringGoingToAddedToDoc);
+            xWriter.print(stringGoingToAddedToDoc + "\r\n");
             return true;
-        }catch (IOException e) {
+        } catch (IOException e) {
             System.out.print("IOException");
             return false;
 
-        }finally {
+        } finally {
             xWriter.close();
         }
 
     }
     //takes in file and string, and writes string to file
 
-    public int findAmountOfLines (String fileNameWithTxt) throws FileNotFoundException {
+    public int findAmountOfLines(String fileNameWithTxt) throws FileNotFoundException {
         File file = new File(fileNameWithTxt);
-        int lineAmount= 0;
+        int lineAmount = 0;
         Scanner lineCounter = new Scanner(file);
-        while(lineCounter.hasNextLine()) {
+        while (lineCounter.hasNextLine()) {
             lineCounter.nextLine();
             lineAmount++;
         }
         return lineAmount;
     }
+
     //finds the amount of lines in a file
-    public int rollTen (int pity, int pity2) {
+    public int rollTen(int pity, int pity2) {
         int rolls[];
         int rollNum;
-        for (int i = 0; i<10; i++) {
+        for (int i = 0; i < 10; i++) {
             if (pity < 75) {
-                rollNum = (int) ((double) Math.random()*101);
+                rollNum = (int) ((double) Math.random() * 101);
 
             }
         }
         return 10;
     }
+
     //ten roll - not finished yet
-    public String[] saveData (int lineAmount, String fileNameWithTxt) throws FileNotFoundException{
+    public String[] saveData(int lineAmount, String fileNameWithTxt) throws FileNotFoundException {
+
+
         File file = new File(fileNameWithTxt);
         //lineAmount = lineAmount - 1;
         String lineInfo = ".";
         String[] exportedData = new String[lineAmount];
-        Scanner lineReader = new Scanner (file);
+        Scanner lineReader = new Scanner(file);
         for (int i = 0; i < lineAmount; i++) {
             lineInfo = lineReader.nextLine();
             exportedData[i] = lineInfo;
@@ -117,18 +121,12 @@ public class Methods {
     }
     //makes file once given file name
 
-    /*
-    public void ifmakeFile (String name) throws IOException{
+    public String userpassFile (String user, String pass) {
 
-        name = name + ".txt";
-        File file = new File(name);
+        return user + pass + ".txt";
+    }
 
-        if (file.exists()) {
-            System.out.println("File already exists - " + file.getName());
-        } else {
-            file.createNewFile();
-            System.out.println("File created");
-        }
-    }*/
+
 }
+
 
